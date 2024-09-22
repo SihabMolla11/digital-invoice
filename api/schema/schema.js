@@ -31,18 +31,13 @@ const ordersSchema = new mongoose.Schema({
     required: true,
   },
 
-  orderDate: {
-    type: Date,
-    required: true,
-  },
-
   deliveryDate: {
     type: Date,
     required: true,
   },
 
   sellsExecutiveName: {
-    type: Date,
+    type: String,
     required: true,
   },
 
@@ -93,6 +88,7 @@ const orderedProductSchema = new mongoose.Schema({
   orderStatus: {
     type: String,
     enum: ["pending", "inprogress", "delivered"],
+    default:"pending",
     required: true,
   },
 
