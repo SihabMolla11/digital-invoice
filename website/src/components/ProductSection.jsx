@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFieldArray } from "react-hook-form";
 import { FaPlus } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 
-const ProductSection = ({ errors, register, control }) => {
+const ProductSection = ({ errors, register, control, watch, setValue }) => {
   const fieldName = "productsData";
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: fieldName,
   });
+
+  const productsData = watch(fieldName);
+  const prices = productsData?.reduce((a, b) => a + b?.price, 0);
+  const quantities = productsData?.reduce((a, b) => a + b?.quantity, 0);
+  useEffect(() => {
+    for (let i = 0; i < fields.length; i++) {
+      const price = productsData[i]?.price || 0;
+      const quantity = productsData[i]?.quantity || 0;
+      const total = price * quantity;
+      setValue(`${fieldName}.${i}.total`, total);
+    }
+  }, [prices, quantities]);
 
   return (
     <div className="mt-8">
@@ -42,7 +54,6 @@ const ProductSection = ({ errors, register, control }) => {
                 <tr key={index} className="w-full ">
                   <td className="w-[38%] p-2 min-w-60">
                     <input
-                      id="date"
                       className="default-input w-full"
                       placeholder="product name"
                       {...register(`${fieldName}.${index}.productName`, {
@@ -55,7 +66,7 @@ const ProductSection = ({ errors, register, control }) => {
                   </td>
                   <td className="w-[20%] p-2 min-w-32">
                     <input
-                      id="date"
+                      defaultValue={0}
                       className="default-input w-full"
                       placeholder="price"
                       type="number"
@@ -69,7 +80,7 @@ const ProductSection = ({ errors, register, control }) => {
                   </td>
                   <td className="w-[20%] p-2 min-w-32">
                     <input
-                      id="date"
+                      defaultValue={0}
                       className="default-input w-full"
                       placeholder="quantity"
                       type="number"
@@ -84,7 +95,8 @@ const ProductSection = ({ errors, register, control }) => {
                   <td className="w-[20%] p-2 min-w-32">
                     {" "}
                     <input
-                      id="date"
+                      disabled
+                      defaultValue={0}
                       className="default-input w-full"
                       placeholder="total"
                       type="number"

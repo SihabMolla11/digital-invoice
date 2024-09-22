@@ -9,11 +9,11 @@ const StoreSection = ({ register, errors }) => {
           <h4 className="text-xl font-semibold">Store Info:</h4>
           <div className="mt-2 space-y-2">
             <div className="flex flex-col">
-              <label className="font-semibold text-sm" htmlFor="date">
+              <label className="font-semibold text-sm" htmlFor="store-name">
                 Store Name:
               </label>
               <input
-                id="date"
+                id="store-name"
                 className="default-input "
                 placeholder="store name"
                 {...register("storeName", { required: true })}
@@ -23,11 +23,11 @@ const StoreSection = ({ register, errors }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <label className="font-semibold text-sm" htmlFor="date">
+              <label className="font-semibold text-sm" htmlFor="owner-name">
                 Store Owner Name:
               </label>
               <input
-                id="date"
+                id="owner-name"
                 className="default-input "
                 placeholder="store owner name"
                 {...register("storeOwnerName", { required: true })}
@@ -37,11 +37,11 @@ const StoreSection = ({ register, errors }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <label className="font-semibold text-sm" htmlFor="date">
+              <label className="font-semibold text-sm" htmlFor="store-address">
                 Store Address:
               </label>
               <textarea
-                id="date"
+                id="store-address"
                 className="default-input "
                 placeholder="store address"
                 {...register("storeAddress", { required: true })}
@@ -69,11 +69,11 @@ const StoreSection = ({ register, errors }) => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="font-semibold text-sm" htmlFor="date">
+              <label className="font-semibold text-sm" htmlFor="delivery-date">
                 Delivery Date:
               </label>
               <input
-                id="date"
+                id="delivery-date"
                 type="date"
                 className="default-input w-full"
                 {...register("deliveryDate", { required: true })}
