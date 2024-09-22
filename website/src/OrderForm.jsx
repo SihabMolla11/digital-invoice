@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { PiDownloadSimple } from "react-icons/pi";
+import { useReactToPrint } from "react-to-print";
 import AmountSection from "./components/AmountSection";
 import InvoiceForPrint from "./components/InvoiceForPrint";
 import ProductSection from "./components/ProductSection";
@@ -10,14 +11,21 @@ import StoreSection from "./components/StoreSection";
 import { post } from "./service/api";
 
 const OrderForm = () => {
-  const createOrder = useMutation({
-    mutationFn: async (data) => await post("create-order", data),
-    onSuccess: (response) => {
-      toast.success("Order posed successfully");
-    },
-    onError: () => {
-      message.error("Something went wrong");
-    },
+  const printWindow = useRef();
+
+  const profilePrint = useReactToPrint({
+    content: () => printWindow.current,
+    pageStyle: `@media print {
+            .hide-the-component{
+                display:block !important;
+            }
+            @page {
+            size: 750px 1100px;
+              margin: 2mm;
+            }
+          }`,
+    removeAfterPrint: true,
+    documentTitle: `Invoice Of order`,
   });
 
   const {
@@ -26,10 +34,24 @@ const OrderForm = () => {
     watch,
     control,
     setValue,
+    getValues,
+    reset,
     formState: { errors },
   } = useForm({
     values: {
       productsData: [{}],
+    },
+  });
+
+  const createOrder = useMutation({
+    mutationFn: async (data) => await post("create-order", data),
+    onSuccess: (response) => {
+      toast.success("Order posed successfully");
+      profilePrint();
+      reset();
+    },
+    onError: () => {
+      message.error("Something went wrong");
     },
   });
 
@@ -89,7 +111,9 @@ const OrderForm = () => {
           </button>
         </div>
       </form>
-      <InvoiceForPrint />
+      <div className="hide-the-component" ref={printWindow}>
+        <InvoiceForPrint getValues={getValues} />
+      </div>
     </div>
   );
 };

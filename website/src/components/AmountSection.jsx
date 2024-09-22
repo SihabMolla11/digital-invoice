@@ -22,7 +22,7 @@ const AmountSection = ({ errors, register, watch, setValue }) => {
     <>
       <div className="flex flex-col md:flex-row flex-col-reverse gap-6 md:items-end justify-between">
         <div>
-          <div className="flex flex-col">
+          <div className="flex flex-col mt-8 md:mt-0">
             <input
               className="default-input "
               placeholder="sales executive name"
@@ -35,7 +35,7 @@ const AmountSection = ({ errors, register, watch, setValue }) => {
         </div>
         <div className="mt-8 text-end">
           <div className="space-y-2">
-            <div>
+            <div className="flex items-start  md:items-center justify-start md:justify-end flex-col md:flex-row">
               <label className="font-semibold mr-2" htmlFor="grand-total">
                 Grand Total:
               </label>
@@ -56,7 +56,7 @@ const AmountSection = ({ errors, register, watch, setValue }) => {
               </div>
             </div>
 
-            <div>
+            <div className="flex items-start  md:items-center justify-start md:justify-end flex-col md:flex-row">
               <label className="font-semibold mr-2" htmlFor="advance-amount">
                 Advance Amount:
               </label>
@@ -76,7 +76,7 @@ const AmountSection = ({ errors, register, watch, setValue }) => {
               </div>
             </div>
 
-            <div>
+            <div className="flex items-start  md:items-center justify-start md:justify-end flex-col md:flex-row">
               <label className="font-semibold mr-2" htmlFor="due-amount">
                 Due Amount:
               </label>
@@ -97,7 +97,7 @@ const AmountSection = ({ errors, register, watch, setValue }) => {
               </div>
             </div>
 
-            <div>
+            <div className="flex items-start  md:items-center justify-start md:justify-end flex-col md:flex-row">
               <label
                 className="font-semibold mr-2"
                 htmlFor="previous-due-amount"
@@ -115,7 +115,7 @@ const AmountSection = ({ errors, register, watch, setValue }) => {
               />
             </div>
 
-            <div>
+            <div className="flex items-start  md:items-center justify-start md:justify-end flex-col md:flex-row">
               <label className="font-semibold mr-2" htmlFor="total-due-amount">
                 Total Due Amount:
               </label>

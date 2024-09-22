@@ -13,3 +13,6 @@
 .input-error {
   @apply text-[12px] font-bold text-red-600;
 }
+.hide-the-component{
+  display: none ;
+}
