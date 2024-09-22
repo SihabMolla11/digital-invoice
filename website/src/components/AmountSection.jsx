@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const AmountSection = ({ errors, register }) => {
+const AmountSection = ({ errors, register, watch, setValue }) => {
+  const productFieldName = "productsData";
+
+  const productsData = watch(productFieldName);
+  const advancedAmount = watch("advancedAmount");
+
+  const grandTotalPrice = productsData?.reduce(
+    (a, b) => a + (b?.price || 0) * (b?.quantity || 0),
+    0
+  );
+
+  const due = grandTotalPrice - advancedAmount;
+
+  useEffect(() => {
+    setValue("grandTotal", grandTotalPrice);
+    setValue("dueAmount", due);
+  }, [grandTotalPrice, due]);
+
   return (
     <>
       <div className="flex flex-col md:flex-row flex-col-reverse gap-6 md:items-end justify-between">
@@ -22,50 +39,62 @@ const AmountSection = ({ errors, register }) => {
               <label className="font-semibold mr-2" htmlFor="grand-total">
                 Grand Total:
               </label>
-              <input
-                id="grand-total"
-                disabled
-                defaultValue={0}
-                className="default-input "
-                placeholder="Grand Total"
-                {...register("grandTotal", { required: true })}
-              />
-              {errors.grandTotal && (
-                <span className="input-error">give total amount</span>
-              )}
+              <div>
+                <input
+                  id="grand-total"
+                  disabled
+                  type="number"
+                  value={grandTotalPrice}
+                  defaultValue={0}
+                  className="default-input "
+                  placeholder="Grand Total"
+                  {...register("grandTotal", { required: true })}
+                />
+                {errors.grandTotal && (
+                  <span className="input-error">give total amount</span>
+                )}
+              </div>
             </div>
 
             <div>
               <label className="font-semibold mr-2" htmlFor="advance-amount">
                 Advance Amount:
               </label>
-              <input
-                id="advance-amount"
-                defaultValue={0}
-                className="default-input "
-                placeholder="Advance Amount"
-                {...register("advancedAmount", { required: true })}
-              />
-              {errors.advancedAmount && (
-                <span className="input-error">give advance amount</span>
-              )}
+              <div>
+                <input
+                  value={advancedAmount}
+                  id="advance-amount"
+                  defaultValue={0}
+                  type="number"
+                  className="default-input "
+                  placeholder="Advance Amount"
+                  {...register("advancedAmount", { required: true })}
+                />
+                {errors.advancedAmount && (
+                  <span className="input-error">give advance amount</span>
+                )}
+              </div>
             </div>
 
             <div>
               <label className="font-semibold mr-2" htmlFor="due-amount">
                 Due Amount:
               </label>
-              <input
-                id="due-amount"
-                disabled
-                defaultValue={0}
-                className="default-input "
-                placeholder="due amount"
-                {...register("dueAmount", { required: true })}
-              />
-              {errors.dueAmount && (
-                <span className="input-error">give due amount</span>
-              )}
+              <div>
+                <input
+                  value={due}
+                  id="due-amount"
+                  disabled
+                  type="number"
+                  defaultValue={0}
+                  className="default-input "
+                  placeholder="due amount"
+                  {...register("dueAmount", { required: true })}
+                />
+                {errors.dueAmount && (
+                  <span className="input-error">give due amount</span>
+                )}
+              </div>
             </div>
 
             <div>
@@ -78,10 +107,11 @@ const AmountSection = ({ errors, register }) => {
               <input
                 id="previous-due-amount"
                 disabled
+                type="number"
                 defaultValue={0}
                 className="default-input "
                 placeholder="previous due amount"
-                {...register("dueAmount")}
+                {...register("previousDuration")}
               />
             </div>
 
@@ -92,10 +122,11 @@ const AmountSection = ({ errors, register }) => {
               <input
                 id="total-due-amount"
                 disabled
+                type="number"
                 defaultValue={0}
                 className="default-input "
                 placeholder="total due amount"
-                {...register("dueAmount")}
+                {...register("totalDurationAmount")}
               />
             </div>
           </div>

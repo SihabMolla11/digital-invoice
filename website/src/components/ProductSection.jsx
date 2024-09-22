@@ -12,8 +12,10 @@ const ProductSection = ({ errors, register, control, watch, setValue }) => {
   });
 
   const productsData = watch(fieldName);
-  const prices = productsData?.reduce((a, b) => a + b?.price, 0);
-  const quantities = productsData?.reduce((a, b) => a + b?.quantity, 0);
+  const prices = productsData?.reduce(
+    (a, b) => a + b?.price * (b?.quantity || 0),
+    0
+  );
   useEffect(() => {
     for (let i = 0; i < fields.length; i++) {
       const price = productsData[i]?.price || 0;
@@ -21,7 +23,7 @@ const ProductSection = ({ errors, register, control, watch, setValue }) => {
       const total = price * quantity;
       setValue(`${fieldName}.${i}.total`, total);
     }
-  }, [prices, quantities]);
+  }, [prices]);
 
   return (
     <div className="mt-8">
