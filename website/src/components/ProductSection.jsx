@@ -34,6 +34,9 @@ const ProductSection = ({ errors, register, control, watch, setValue }) => {
           <thead className="w-full ">
             <tr className="w-full bg-body-background  bg-gray-200  ">
               <th className="uppercase text-sm text-black-text text-start font-semibold text-nowrap py-2 px-2">
+                #
+              </th>
+              <th className="uppercase text-sm text-black-text text-start font-semibold text-nowrap py-2 px-2">
                 Product Name
               </th>
               <th className="uppercase text-sm text-start text-black-text font-semibold text-nowrap py-2">
@@ -54,7 +57,8 @@ const ProductSection = ({ errors, register, control, watch, setValue }) => {
             {fields?.map((item, index) => {
               return (
                 <tr key={index} className="w-full ">
-                  <td className="w-[38%] p-2 min-w-60">
+                  <td className="w-[1%] p-2 min-w-3">{index + 1}</td>
+                  <td className="w-[37%] p-2 min-w-60">
                     <input
                       className="default-input w-full"
                       placeholder="product name"

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { PiDownloadSimple } from "react-icons/pi";
 import AmountSection from "./components/AmountSection";
+import InvoiceForPrint from "./components/InvoiceForPrint";
 import ProductSection from "./components/ProductSection";
 import StoreSection from "./components/StoreSection";
 import { post } from "./service/api";
@@ -88,6 +89,7 @@ const OrderForm = () => {
           </button>
         </div>
       </form>
+      <InvoiceForPrint />
     </div>
   );
 };

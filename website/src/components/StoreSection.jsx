@@ -53,7 +53,7 @@ const StoreSection = ({ register, errors }) => {
           </div>
         </div>
         <div className="md:w-[30%] w-full">
-          <h4 className="text-xl font-semibold">Store Info:</h4>
+          <h4 className="text-xl font-semibold">Dates:</h4>
           <div className="mt-2 space-y-2 ">
             <div className="flex flex-col">
               <label className="font-semibold text-sm" htmlFor="date">
