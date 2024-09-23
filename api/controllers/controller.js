@@ -142,3 +142,18 @@ export const getDueAmountForStore = async (req, res) => {
     return res.status(500).json({ message: "Server error occurred." });
   }
 };
+
+export const getAllStore = async (req, res) => {
+  try {
+    const stores = await schema.Store.find().select("storeName");
+
+    if (!stores?.length) {
+      return res.status(400).json({ message: "Not Found Store" });
+    }
+
+    res.send(stores);
+  } catch (error) {
+    console.log(error?.message);
+    return res.status(500).json({ message: "Server error occurred." });
+  }
+};
