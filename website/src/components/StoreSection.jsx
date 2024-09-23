@@ -1,14 +1,39 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import AllStores from "./AllStores";
 
-const StoreSection = ({ register, errors }) => {
-  const date = new Date();
+const StoreSection = ({
+  register,
+  errors,
+  setStoreName,
+  storeName,
+  setValue,
+}) => {
+  const [storeNameIsFocused, setStoreNameIsFocused] = useState(false);
+
+  const popupRef = useRef();
+
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setStoreNameIsFocused(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="mt-12">
       <div className="flex w-full flex-col flex-col-reverse  md:flex-row md:justify-between items-start gap-8 md:gap-16">
         <div className="md:w-[70%] w-full">
           <h4 className="text-xl font-semibold">Store Info:</h4>
+
           <div className="mt-2 space-y-2">
-            <div className="flex flex-col">
+            <div className="flex flex-col relative">
               <label className="font-semibold text-sm" htmlFor="store-name">
                 Store Name:
               </label>
@@ -16,12 +41,27 @@ const StoreSection = ({ register, errors }) => {
                 id="store-name"
                 className="default-input "
                 placeholder="store name"
+                onFocus={() => setStoreNameIsFocused(true)}
                 {...register("storeName", { required: true })}
               />
               {errors.storeName && (
                 <span className="input-error">give store name</span>
               )}
+
+              {storeNameIsFocused && (
+                <div
+                  ref={popupRef}
+                  className="absolute bg-white w-full drop-shadow-lg border border-gray-200  rounded-md top-[55px]"
+                >
+                  <AllStores
+                    setStoreName={setStoreName}
+                    storeName={storeName}
+                    setValue={setValue}
+                  />
+                </div>
+              )}
             </div>
+
             <div className="flex flex-col">
               <label className="font-semibold text-sm" htmlFor="owner-name">
                 Store Owner Name:
@@ -36,6 +76,7 @@ const StoreSection = ({ register, errors }) => {
                 <span className="input-error">give store owner name</span>
               )}
             </div>
+
             <div className="flex flex-col">
               <label className="font-semibold text-sm" htmlFor="store-address">
                 Store Address:
@@ -52,6 +93,7 @@ const StoreSection = ({ register, errors }) => {
             </div>
           </div>
         </div>
+
         <div className="md:w-[30%] w-full">
           <h4 className="text-xl font-semibold">Dates:</h4>
           <div className="mt-2 space-y-2 ">
@@ -68,6 +110,7 @@ const StoreSection = ({ register, errors }) => {
                 {...register("date")}
               />
             </div>
+
             <div className="flex flex-col">
               <label className="font-semibold text-sm" htmlFor="delivery-date">
                 Delivery Date:

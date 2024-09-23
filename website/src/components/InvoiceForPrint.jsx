@@ -1,7 +1,6 @@
 import React from "react";
 
-const InvoiceForPrint = ({ getValues }) => {
-
+const InvoiceForPrint = ({ getValues, previousDueAmount }) => {
   const date = new Date();
   const data = getValues();
   const deliveryDate = new Date(data?.deliveryDate);
@@ -153,11 +152,15 @@ const InvoiceForPrint = ({ getValues }) => {
                 </p>
                 <p className="font-normal text-gray-700 uppercase mr-2">
                   Previous Due Amount:{" "}
-                  <span className="text-xl font-semibold text-black">3</span>
+                  <span className="text-xl font-semibold text-black">
+                    {previousDueAmount || 0}
+                  </span>
                 </p>
                 <p className="font-normal text-gray-700 uppercase mr-2">
                   Total Due Amount:{" "}
-                  <span className="text-xl font-semibold text-black">3</span>
+                  <span className="text-xl font-semibold text-black">
+                    {previousDueAmount + data?.dueAmount || 0}
+                  </span>
                 </p>
               </div>
             </div>

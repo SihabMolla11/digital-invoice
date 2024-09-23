@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 
-const AmountSection = ({ errors, register, watch, setValue }) => {
+const AmountSection = ({
+  errors,
+  register,
+  watch,
+  setValue,
+  previousDueAmount,
+}) => {
   const productFieldName = "productsData";
 
   const productsData = watch(productFieldName);
@@ -108,10 +114,10 @@ const AmountSection = ({ errors, register, watch, setValue }) => {
                 id="previous-due-amount"
                 disabled
                 type="number"
+                value={previousDueAmount}
                 defaultValue={0}
                 className="default-input "
                 placeholder="previous due amount"
-                {...register("previousDuration")}
               />
             </div>
 
@@ -123,10 +129,10 @@ const AmountSection = ({ errors, register, watch, setValue }) => {
                 id="total-due-amount"
                 disabled
                 type="number"
+                value={previousDueAmount + due}
                 defaultValue={0}
                 className="default-input "
                 placeholder="total due amount"
-                {...register("totalDurationAmount")}
               />
             </div>
           </div>

@@ -123,8 +123,7 @@ export const getDueAmountForStore = async (req, res) => {
     });
 
     if (!store) {
-      res.send("sorry store can't found");
-      return;
+      return res.status(400).json({ message: "sorry store can't found" });
     }
 
     const orders = await schema?.Order.find({
@@ -132,11 +131,12 @@ export const getDueAmountForStore = async (req, res) => {
     }).select("dueAmount");
 
     if (!orders?.length) {
-      res.send("the store are not previous order");
-      return;
+      return res
+        .status(400)
+        .json({ message: "the store are not previous order" });
     }
 
-    res.send(orders);
+    res.send({ orders });
   } catch (error) {
     console.log(error?.message);
     return res.status(500).json({ message: "Server error occurred." });

@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
-import React, { useRef } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { PiDownloadSimple } from "react-icons/pi";
@@ -8,25 +8,11 @@ import AmountSection from "./components/AmountSection";
 import InvoiceForPrint from "./components/InvoiceForPrint";
 import ProductSection from "./components/ProductSection";
 import StoreSection from "./components/StoreSection";
-import { post } from "./service/api";
+import { get, post } from "./service/api";
 
 const OrderForm = () => {
   const printWindow = useRef();
-
-  const profilePrint = useReactToPrint({
-    content: () => printWindow.current,
-    pageStyle: `@media print {
-            .hide-the-component{
-                display:block !important;
-            }
-            @page {
-            size: 750px 1100px;
-              margin: 2mm;
-            }
-          }`,
-    removeAfterPrint: true,
-    documentTitle: `Invoice Of order`,
-  });
+  const [storeName, setStoreName] = useState("");
 
   const {
     register,
@@ -43,6 +29,16 @@ const OrderForm = () => {
     },
   });
 
+  const { isLoading, data: previousOrdered } = useQuery({
+    queryKey: ["get-due-amount-for-store", storeName],
+    queryFn: () => get(`all-due-amount-for-store?storeName=${storeName}`),
+  });
+
+  const previousDueAmount = previousOrdered?.orders?.length
+    ? previousOrdered?.orders?.reduce((a, b) => a + b?.dueAmount, 0)
+    : 0;
+
+  const name = watch("storeName");
   const createOrder = useMutation({
     mutationFn: async (data) => await post("create-order", data),
     onSuccess: (response) => {
@@ -81,10 +77,36 @@ const OrderForm = () => {
     createOrder.mutate({ storeData, orderData, productsData });
   };
 
+  const profilePrint = useReactToPrint({
+    content: () => printWindow.current,
+    pageStyle: `@media print {
+            .hide-the-component{
+                display:block !important;
+            }
+            @page {
+            size: 750px 1100px;
+              margin: 2mm;
+            }
+          }`,
+    removeAfterPrint: true,
+    documentTitle: `Invoice Of order`,
+  });
+
+  useEffect(() => {
+    setStoreName(name);
+    setValue("storeName", storeName);
+  }, [name]);
+
   return (
     <div className="main-container">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <StoreSection register={register} errors={errors} />
+        <StoreSection
+          register={register}
+          errors={errors}
+          setStoreName={setStoreName}
+          storeName={storeName}
+          setValue={setValue}
+        />
         <ProductSection
           register={register}
           errors={errors}
@@ -97,6 +119,7 @@ const OrderForm = () => {
           errors={errors}
           watch={watch}
           setValue={setValue}
+          previousDueAmount={previousDueAmount}
         />
 
         <div
@@ -112,7 +135,10 @@ const OrderForm = () => {
         </div>
       </form>
       <div className="hide-the-component" ref={printWindow}>
-        <InvoiceForPrint getValues={getValues} />
+        <InvoiceForPrint
+          getValues={getValues}
+          previousDueAmount={previousDueAmount}
+        />
       </div>
     </div>
   );
