@@ -1,15 +1,35 @@
+import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { RxCross1 } from "react-icons/rx";
+import { patch } from "../service/api";
 
-const OrderDetailModal = ({ setOpenModal, setSelectedOrder, data }) => {
+const OrderDetailModal = ({
+  setOpenModal,
+  setSelectedOrder,
+  data,
+  refetch,
+}) => {
   const [selectedStatus, setSelectedStatus] = useState(null);
+
+  const updateMutation = useMutation({
+    mutationFn: async (productData) =>
+      await patch(`update-order-status/${data?.orderInfo?._id}`, productData),
+    onSuccess: (response) => {
+      toast.success("Change Order Status Successfully");
+      refetch();
+    },
+    onError: (err) => {
+      console.log(err);
+      toast.error("Something went wrong");
+    },
+  });
 
   const handelCloseModal = () => {
     setOpenModal(false);
     setSelectedOrder(null);
   };
 
-  console.log("bangal item", data);
 
   const orderDate = new Date(data?.orderInfo?.created_at);
   const deliveryDate = new Date(data?.orderInfo?.deliveryDate);
@@ -18,10 +38,6 @@ const OrderDetailModal = ({ setOpenModal, setSelectedOrder, data }) => {
     (a, b) => a + b?.price * b?.quantity,
     0
   );
-
-  const handelChangeStatus = (event) => {
-    console.log("vent", event);
-  };
 
   return (
     <div className="absolute w-full h-full bg-[#00000044] top-0">
@@ -208,6 +224,7 @@ const OrderDetailModal = ({ setOpenModal, setSelectedOrder, data }) => {
                   </h2>
                   <div className="flex lg:items-center gap-2 flex-col lg:flex-row items-start">
                     <select
+                      defaultValue={data?.orderInfo?.orderStatus}
                       className="border border-black focus:outline-none focus:border-green-600 py-1 px-2 w-32"
                       name="cars"
                       id="cars"
@@ -222,7 +239,15 @@ const OrderDetailModal = ({ setOpenModal, setSelectedOrder, data }) => {
                     </select>{" "}
                     <div>
                       <button
-                        className="bg-green-500 text-white hover:bg-green-600 px-4 py-1 rounded-sm"
+                        onClick={() =>
+                          updateMutation.mutate({ orderStatus: selectedStatus })
+                        }
+                        disabled={!selectedStatus}
+                        className={` text-white  px-4 py-1 rounded-sm ${
+                          !selectedStatus
+                            ? "bg-green-300"
+                            : "bg-green-500 hover:bg-green-600"
+                        } `}
                         type="button"
                       >
                         Save Change

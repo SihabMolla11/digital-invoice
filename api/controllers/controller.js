@@ -175,3 +175,24 @@ export const deleteOrder = async (req, res) => {
     return res.status(500).json({ message: "Server error occurred." });
   }
 };
+
+export const updateOrderStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const updatedOrder = await schema?.Order.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Order not found." });
+    }
+
+    res.send({ message: "Order updated successfully.", order: updatedOrder });
+  } catch (error) {
+    console.log(error?.message);
+    return res.status(500).json({ message: "Server error occurred." });
+  }
+};

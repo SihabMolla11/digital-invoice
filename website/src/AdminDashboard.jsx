@@ -101,6 +101,7 @@ const AdminDashboard = () => {
           data={selectedOrder}
           setSelectedOrder={setSelectedOrder}
           setOpenModal={setOpenModal}
+          refetch={refetch}
         />
       )}
     </>

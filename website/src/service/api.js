@@ -7,6 +7,11 @@ export const post = async (url, data) => {
   return response.data;
 };
 
+export const patch = async (url, data) => {
+  const response = await axios.patch(`${baseUrl}/${url}`, data);
+  return response.data;
+};
+
 export const get = async (url) => {
   const response = await axios.get(`${baseUrl}/${url}`);
   return response.data;
