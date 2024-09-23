@@ -11,3 +11,9 @@ export const get = async (url) => {
   const response = await axios.get(`${baseUrl}/${url}`);
   return response.data;
 };
+
+
+export const deleteRequest = async (url) => {
+  const response = await axios.delete(`${baseUrl}/${url}`);
+  return response.data;
+};

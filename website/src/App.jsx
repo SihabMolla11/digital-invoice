@@ -8,10 +8,7 @@ function App() {
   return (
     <>
       <Header />
-      <Outlet>
-        <OrderForm />
-        <AdminDashboard />
-      </Outlet>
+      <Outlet />
       <Toaster />
     </>
   );

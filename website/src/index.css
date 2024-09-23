@@ -16,3 +16,7 @@
 .hide-the-component {
   display: none;
 }
+
+.table-head-row {
+  @apply uppercase text-sm text-start font-semibold text-nowrap py-2 px-4;
+}

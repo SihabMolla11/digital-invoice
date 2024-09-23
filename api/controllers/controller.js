@@ -156,3 +156,22 @@ export const getAllStore = async (req, res) => {
     return res.status(500).json({ message: "Server error occurred." });
   }
 };
+
+export const deleteOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedOrder = await schema?.Order.findByIdAndDelete(id);
+
+    if (!deletedOrder) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    return res.send({
+      message: "Order deleted successfully.",
+      order: deletedOrder,
+    });
+  } catch (error) {
+    console.log(error?.message);
+    return res.status(500).json({ message: "Server error occurred." });
+  }
+};
