@@ -56,6 +56,13 @@ const ordersSchema = new mongoose.Schema({
     required: true,
   },
 
+  orderStatus: {
+    type: String,
+    enum: ["pending", "inprogress", "delivered", "cancel"],
+    default: "pending",
+    required: true,
+  },
+
   created_at: {
     type: Date,
     default: Date.now(),
@@ -82,13 +89,6 @@ const orderedProductSchema = new mongoose.Schema({
 
   total: {
     type: Number,
-    required: true,
-  },
-
-  orderStatus: {
-    type: String,
-    enum: ["pending", "inprogress", "delivered"],
-    default:"pending",
     required: true,
   },
 
