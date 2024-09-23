@@ -31,7 +31,6 @@ export const createOrder = async (req, res) => {
 
     const isStoreExecute = await schema?.Store.findOne({
       storeName: storeData?.storeName,
-      storeAddress: storeData?.storeAddress,
     });
 
     if (isStoreExecute) {

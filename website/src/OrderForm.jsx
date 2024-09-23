@@ -29,16 +29,18 @@ const OrderForm = () => {
     },
   });
 
+  const name = watch("storeName");
+
   const { isLoading, data: previousOrdered } = useQuery({
-    queryKey: ["get-due-amount-for-store", storeName],
-    queryFn: () => get(`all-due-amount-for-store?storeName=${storeName}`),
+    queryKey: ["get-due-amount-for-store", storeName, name],
+    queryFn: () => get(`all-due-amount-for-store?storeName=${name}`),
   });
+
 
   const previousDueAmount = previousOrdered?.orders?.length
     ? previousOrdered?.orders?.reduce((a, b) => a + b?.dueAmount, 0)
     : 0;
 
-  const name = watch("storeName");
   const createOrder = useMutation({
     mutationFn: async (data) => await post("create-order", data),
     onSuccess: (response) => {
@@ -92,11 +94,6 @@ const OrderForm = () => {
     documentTitle: `Invoice Of order`,
   });
 
-  useEffect(() => {
-    setStoreName(name);
-    setValue("storeName", storeName);
-  }, [name]);
-
   return (
     <div className="main-container">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -104,7 +101,7 @@ const OrderForm = () => {
           register={register}
           errors={errors}
           setStoreName={setStoreName}
-          storeName={storeName}
+          storeName={name}
           setValue={setValue}
         />
         <ProductSection

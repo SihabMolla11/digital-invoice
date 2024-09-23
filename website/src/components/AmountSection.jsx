@@ -114,7 +114,7 @@ const AmountSection = ({
                 id="previous-due-amount"
                 disabled
                 type="number"
-                value={previousDueAmount}
+                value={previousDueAmount || 0}
                 defaultValue={0}
                 className="default-input "
                 placeholder="previous due amount"
@@ -129,7 +129,7 @@ const AmountSection = ({
                 id="total-due-amount"
                 disabled
                 type="number"
-                value={previousDueAmount + due}
+                value={previousDueAmount + due || 0}
                 defaultValue={0}
                 className="default-input "
                 placeholder="total due amount"
