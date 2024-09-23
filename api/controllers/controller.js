@@ -100,15 +100,43 @@ export const getAllOrder = async (req, res) => {
       })
       .exec();
 
-  const data = await Promise.all(
-    orders?.map(async (item) => {
-      const products = await schema?.OrderedProduct.find({
-        orderId: item?._id,
-      });
-      return { orderInfo:item, products };
-    })
-  );
+    const data = await Promise.all(
+      orders?.map(async (item) => {
+        const products = await schema?.OrderedProduct.find({
+          orderId: item?._id,
+        });
+        return { orderInfo: item, products };
+      })
+    );
     return res.send(data);
+  } catch (error) {
+    console.log(error?.message);
+    return res.status(500).json({ message: "Server error occurred." });
+  }
+};
+
+export const getDueAmountForStore = async (req, res) => {
+  try {
+    const { storeName } = req?.query;
+    const store = await schema.Store.findOne({
+      storeName: storeName?.trim(),
+    });
+
+    if (!store) {
+      res.send("sorry store can't found");
+      return;
+    }
+
+    const orders = await schema?.Order.find({
+      storeId: store?._id,
+    }).select("dueAmount");
+
+    if (!orders?.length) {
+      res.send("the store are not previous order");
+      return;
+    }
+
+    res.send(orders);
   } catch (error) {
     console.log(error?.message);
     return res.status(500).json({ message: "Server error occurred." });
