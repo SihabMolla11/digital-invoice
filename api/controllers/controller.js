@@ -105,7 +105,7 @@ export const getAllOrder = async (req, res) => {
       const products = await schema?.OrderedProduct.find({
         orderId: item?._id,
       });
-      return { item, products };
+      return { orderInfo:item, products };
     })
   );
     return res.send(data);
