@@ -1,7 +1,6 @@
 import React from "react";
 
 const InvoiceForPrint = ({ getValues }) => {
-  console.log("getValues", getValues());
 
   const date = new Date();
   const data = getValues();

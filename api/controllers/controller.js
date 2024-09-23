@@ -90,3 +90,27 @@ export const createOrder = async (req, res) => {
     return res.status(500).json({ message: "Server error occurred." });
   }
 };
+
+export const getAllOrder = async (req, res) => {
+  try {
+    const orders = await schema?.Order.find()
+      .populate({
+        path: "storeId",
+        model: schema?.Store,
+      })
+      .exec();
+
+  const data = await Promise.all(
+    orders?.map(async (item) => {
+      const products = await schema?.OrderedProduct.find({
+        orderId: item?._id,
+      });
+      return { item, products };
+    })
+  );
+    return res.send(data);
+  } catch (error) {
+    console.log(error?.message);
+    return res.status(500).json({ message: "Server error occurred." });
+  }
+};

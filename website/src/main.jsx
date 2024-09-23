@@ -5,12 +5,16 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import OrderForm from "./Orderform.jsx";
 import "./index.css";
+import AdminDashboard from "./AdminDashboard.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children: [{ path: "/", element: <OrderForm /> }],
+    children: [
+      { path: "/", element: <OrderForm /> },
+      { path: "/admin-dashboard", element: <AdminDashboard /> }
+    ],
   },
 ]);
 
