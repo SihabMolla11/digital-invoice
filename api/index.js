@@ -6,14 +6,13 @@ import api_route from "./router.js";
 
 dotenv.config();
 
-
 const app = express();
 const port = process.env.PORT;
 const db_url = process.env.DB_URL;
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin: "https://incomparable-lollipop-486a06.netlify.app/",
     credentials: true,
   })
 );
@@ -21,7 +20,7 @@ app.use(
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("!bangal project is running");
+  res.send("!the project is running");
 });
 
 app.use("/api", api_route);
