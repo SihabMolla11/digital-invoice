@@ -16,11 +16,11 @@ const app = express();
 const port = process.env.PORT || 8000;
 const db_url = process.env.DB_URL;
 
-app.options("", cors(corsConfig));
+// app.options("", cors(corsConfig));
 
 app.use(
   cors({
-    origin: "https://incomparable-lollipop-486a06.netlify.app/",
+    origin: "*",
     credentials: true,
   })
 );
