@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/api", api_route);
 
-export default async (req, res) => {
-  await connectWithDatabase(db_url);
-  app(req, res);
-};
+app.listen(port, () => {
+  connectWithDatabase(db_url);
+  console.log("server is running on", port);
+});
