@@ -2,11 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { get } from "../service/api";
 
-const AllStores = ({
-  setStoreName,
-  storeName,
-  setValue,
-}) => {
+const AllStores = ({ setStoreName, storeName, setValue }) => {
   const { data: allStore } = useQuery({
     queryKey: ["get-allStore"],
     queryFn: () => get("all-store"),

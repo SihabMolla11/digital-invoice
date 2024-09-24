@@ -12,7 +12,6 @@ const StoreSection = ({
 
   const popupRef = useRef();
 
-
   const handleClickOutside = (event) => {
     if (popupRef.current && !popupRef.current.contains(event.target)) {
       setStoreNameIsFocused(false);
@@ -30,7 +29,9 @@ const StoreSection = ({
     <div className="mt-12">
       <div className="flex w-full flex-col flex-col-reverse  md:flex-row md:justify-between items-start gap-8 md:gap-16">
         <div className="md:w-[70%] w-full">
-          <h4 className="text-xl font-semibold">Store Info:</h4>
+          <h4 className="text-xl font-semibold">
+            <span className="border-b-2 border-black">Store Info:</span>
+          </h4>
 
           <div className="mt-2 space-y-2">
             <div className="flex flex-col relative">
@@ -95,7 +96,9 @@ const StoreSection = ({
         </div>
 
         <div className="md:w-[30%] w-full">
-          <h4 className="text-xl font-semibold">Dates:</h4>
+          <h4 className="text-xl font-semibold">
+            <span className="border-b-2 border-black">Dates:</span>
+          </h4>
           <div className="mt-2 space-y-2 ">
             <div className="flex flex-col">
               <label className="font-semibold text-sm" htmlFor="date">

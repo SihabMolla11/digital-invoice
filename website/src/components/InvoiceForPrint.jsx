@@ -33,7 +33,9 @@ const InvoiceForPrint = ({ getValues, previousDueAmount }) => {
       <div className="main-container mt-12">
         <div className="flex items-start justify-between w-full">
           <div>
-            <h4 className="text-xl font-semibold">Store Info:</h4>
+            <h4 className="text-xl font-semibold">
+              <span className="border-b-2 border-black">Store Info::</span>
+            </h4>
             <div className="mt-2">
               <p className="text-gray-600">
                 Store Name:
@@ -60,7 +62,9 @@ const InvoiceForPrint = ({ getValues, previousDueAmount }) => {
             </div>
           </div>
           <div>
-            <h4 className="text-xl font-semibold">Store Info:</h4>
+            <h4 className="text-xl font-semibold">
+              <span className="border-b-2 border-black">Dates:</span>
+            </h4>
             <div className="mt-2">
               <p className="text-gray-600">
                 Order Date:
@@ -79,7 +83,10 @@ const InvoiceForPrint = ({ getValues, previousDueAmount }) => {
         </div>
 
         <div className="mt-8">
-          <h4 className="text-xl font-semibold">Product Info:</h4>
+          <h4 className="text-xl font-semibold">
+            {" "}
+            <span className="border-b-2 border-black"> Product Info:</span>
+          </h4>
 
           <div className="overflow-x-auto overflow-y-hidden">
             <table className="w-full mt-2 border-gray-400 ">

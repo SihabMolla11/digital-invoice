@@ -30,7 +30,6 @@ const OrderDetailModal = ({
     setSelectedOrder(null);
   };
 
-
   const orderDate = new Date(data?.orderInfo?.created_at);
   const deliveryDate = new Date(data?.orderInfo?.deliveryDate);
 
@@ -53,9 +52,9 @@ const OrderDetailModal = ({
 
           <div className=" ">
             <div className="mb-6">
-              <p className="text-xl flex flex-col md:flex-row text-center  border-b-2  border-black">
+              <p className="text-xl flex flex-col md:flex-row justify-start md:gap-2 md:justify-center  border-b-2  border-black">
                 <span>Sales Executive:</span>
-                <span className="font-semibold ml-2">
+                <span className="font-semibold ">
                   {data?.orderInfo?.sellsExecutiveName}
                 </span>
               </p>
@@ -63,7 +62,9 @@ const OrderDetailModal = ({
 
             <div className="flex items-start justify-between flex-col md:flex-row gap-6 w-full">
               <div>
-                <h4 className="text-xl font-semibold">Store Info:</h4>
+                <h4 className="text-xl font-semibold">
+                  <span className="border-b-2 border-black">Store Info:</span>
+                </h4>
                 <div className="mt-2">
                   <p className="text-gray-600">
                     Store Name:
@@ -92,7 +93,9 @@ const OrderDetailModal = ({
                 </div>
               </div>
               <div>
-                <h4 className="text-xl font-semibold">Store Info:</h4>
+                <h4 className="text-xl font-semibold">
+                  <span className="border-b-2 border-black">Dates:</span>
+                </h4>
                 <div className="mt-2">
                   <p className="text-gray-600">
                     Order Date:
@@ -111,7 +114,9 @@ const OrderDetailModal = ({
             </div>
 
             <div className="mt-8">
-              <h4 className="text-xl font-semibold">Product Info:</h4>
+              <h4 className="text-xl font-semibold">
+                <span className="border-b-2 border-black">Product Info:</span>
+              </h4>
 
               <div className="overflow-x-auto overflow-y-hidden">
                 <table className="w-full mt-2 border-gray-400 ">
@@ -162,36 +167,6 @@ const OrderDetailModal = ({
               </div>
 
               <div className="">
-                {/* <div>
-                  <div className="flex flex-col min-w-36   ">
-                    <h2 className="capitalize text-lg font-semibold">
-                      Change Status:
-                    </h2>
-                    <div className="flex lg:items-center gap-2 flex-col lg:flex-row items-start">
-                      <select
-                        className="border border-black focus:outline-none focus:border-green-600 py-1 px-2 w-32"
-                        name="cars"
-                        id="cars"
-                        onChange={(event) =>
-                          setSelectedStatus(event?.target?.value)
-                        }
-                      >
-                        <option value="pending">Pending</option>
-                        <option value="inprogress">Inprogress</option>
-                        <option value="delivered">Delivered</option>
-                        <option value="cancel">Cancel</option>
-                      </select>{" "}
-                      <div>
-                        <button
-                          className="bg-green-500 text-white hover:bg-green-600 px-4 py-1 rounded-sm"
-                          type="button"
-                        >
-                          Save Change
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
                 <div className="mt-8 text-start">
                   <div className="space-y-2">
                     <p className="font-normal text-gray-700 uppercase mr-2">

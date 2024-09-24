@@ -31,14 +31,13 @@ const OrderForm = () => {
 
   const name = watch("storeName");
 
-  const { isLoading, data: previousOrdered } = useQuery({
+  const { isLoading, data: store } = useQuery({
     queryKey: ["get-due-amount-for-store", storeName, name],
     queryFn: () => get(`all-due-amount-for-store?storeName=${name}`),
   });
 
-
-  const previousDueAmount = previousOrdered?.orders?.length
-    ? previousOrdered?.orders?.reduce((a, b) => a + b?.dueAmount, 0)
+  const previousDueAmount = store?.orders?.length
+    ? store?.orders?.reduce((a, b) => a + b?.dueAmount, 0)
     : 0;
 
   const createOrder = useMutation({
@@ -49,7 +48,8 @@ const OrderForm = () => {
       reset();
     },
     onError: () => {
-      message.error("Something went wrong");
+      console.log("Something went wrong");
+      toast.error("Something went wrong");
     },
   });
 
@@ -93,6 +93,13 @@ const OrderForm = () => {
     removeAfterPrint: true,
     documentTitle: `Invoice Of order`,
   });
+
+  if (store?.storeOwnerName) {
+    setValue("storeOwnerName", store?.storeOwnerName);
+  }
+  if (store?.storeAddress) {
+    setValue("storeAddress", store?.storeAddress);
+  }
 
   return (
     <div className="main-container">

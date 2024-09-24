@@ -27,7 +27,9 @@ const ProductSection = ({ errors, register, control, watch, setValue }) => {
 
   return (
     <div className="mt-8">
-      <h4 className="text-xl font-semibold">Product Info:</h4>
+      <h4 className="text-xl font-semibold">
+        <span className="border-b-2 border-black">Product Info:</span>
+      </h4>
 
       <div className="overflow-x-auto">
         <table className="w-full mt-2 border-gray-400 ">

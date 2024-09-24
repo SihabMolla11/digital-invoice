@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const AmountSection = ({
   errors,
@@ -19,16 +19,26 @@ const AmountSection = ({
 
   const due = grandTotalPrice - advancedAmount;
 
-  useEffect(() => {
+  if (due > 0) {
     setValue("grandTotal", grandTotalPrice);
+  } else {
+    setValue("grandTotal", 0);
+  }
+
+  if (due > 0) {
     setValue("dueAmount", due);
-  }, [grandTotalPrice, due]);
+  } else {
+    setValue("dueAmount", 0);
+  }
 
   return (
     <>
       <div className="flex flex-col md:flex-row flex-col-reverse gap-6 md:items-end justify-between">
         <div>
           <div className="flex flex-col mt-8 md:mt-0">
+            <label className="font-semibold" htmlFor="sellsExecutiveName ">
+              Sales executive name:
+            </label>
             <input
               className="default-input "
               placeholder="sales executive name"
@@ -88,7 +98,6 @@ const AmountSection = ({
               </label>
               <div>
                 <input
-                  value={due}
                   id="due-amount"
                   disabled
                   type="number"
@@ -129,7 +138,9 @@ const AmountSection = ({
                 id="total-due-amount"
                 disabled
                 type="number"
-                value={previousDueAmount + due || 0}
+                value={
+                  previousDueAmount + due > 0 ? previousDueAmount + due : 0
+                }
                 defaultValue={0}
                 className="default-input "
                 placeholder="total due amount"

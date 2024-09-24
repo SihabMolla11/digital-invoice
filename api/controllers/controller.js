@@ -135,7 +135,11 @@ export const getDueAmountForStore = async (req, res) => {
         .json({ message: "the store are not previous order" });
     }
 
-    res.send({ orders });
+    res.send({
+      orders,
+      storeOwnerName: store?.storeOwnerName,
+      storeAddress: store?.storeAddress,
+    });
   } catch (error) {
     console.log(error?.message);
     return res.status(500).json({ message: "Server error occurred." });
