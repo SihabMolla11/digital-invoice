@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const baseUrl = "http://localhost:5000/api";
-const baseUrl = "https://digital-invoice-7mh2.vercel.app/api";
+const baseUrl = "https://digital-invoice-1.onrender.com/api";
 
 export const post = async (url, data) => {
   const response = await axios.post(`${baseUrl}/${url}`, data);
