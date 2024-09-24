@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AdminDashboard from "./AdminDashboard.jsx";
 import App from "./App.jsx";
-import OrderForm from "./Orderform.jsx";
+import OrderForm from "./OrderForm.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
