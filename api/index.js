@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api", api_route);
 
-app.listen(port, () => {
+app.listen(() => {
   connectWithDatabase(db_url);
   console.log("server is running on", port);
 });
